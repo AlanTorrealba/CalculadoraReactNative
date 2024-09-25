@@ -15,8 +15,13 @@ export const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.background,
   },
+  calculatorContainer: {
+    flex: 1,
+    padding: 20,
+    justifyContent: 'flex-end',
+  },
 
-  mainResult:{
+  mainResult: {
     color: colors.textPrimary,
     fontSize: 70,
     textAlign: 'right',
@@ -24,10 +29,31 @@ export const styles = StyleSheet.create({
     fontWeight: '400',
   },
 
-  subResult:{
+  subResult: {
     color: colors.textSecondary,
     fontSize: 40,
     textAlign: 'right',
     fontWeight: '300',
+  },
+  row:{
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginBottom: 18,
+    paddingHorizontal: 10,
+  },
+
+  button: {
+    height:70,
+    width: 70,
+    backgroundColor: colors.darkGray,
+    borderRadius: 100,
+    justifyContent: 'center',
+    marginHorizontal: 10,
+  },
+  buttonText: {
+    textAlign: 'center',
+    padding: 10,
+    fontSize: 30,
+    color: 'white',
   },
 });
