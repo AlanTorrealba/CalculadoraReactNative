@@ -17,7 +17,7 @@ export const styles = StyleSheet.create({
   },
   calculatorContainer: {
     flex: 1,
-    padding: 20,
+    padding: 0,
     justifyContent: 'flex-end',
   },
 
@@ -25,7 +25,7 @@ export const styles = StyleSheet.create({
     color: colors.textPrimary,
     fontSize: 70,
     textAlign: 'right',
-    marginBottom: 10,
+    marginBottom: 5,
     fontWeight: '400',
   },
 
@@ -38,7 +38,7 @@ export const styles = StyleSheet.create({
   row:{
     flexDirection: 'row',
     justifyContent: 'center',
-    marginBottom: 18,
+    marginBottom: 10,
     paddingHorizontal: 10,
   },
 
