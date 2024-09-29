@@ -57,7 +57,7 @@ export const useCalculator = () => {
     lasOperation.current = Operator.subtract;
   };
   const clearBuild = () => {
-    if (number === '0' && prevNumber.length > 1) return setPrevNumber('0')
+    if (number === '0' && prevNumber.length > 1) return setPrevNumber('0');
     return setNumber('0');
   };
   const delBuild = () => {
@@ -74,6 +74,29 @@ export const useCalculator = () => {
 
     return setNumber('-' + number);
   };
+  const calculateResult = () => {
+    const num1 = Number(number);
+    const num2 = Number(prevNumber);
+    switch (lasOperation.current) {
+      case Operator.add:
+        setNumber(`${num1 + num2}`);
+        break;
+      case Operator.divide:
+        setNumber(`${num2 / num1 }`);
+        break;
+      case Operator.multiply:
+        setNumber(`${num1 * num2}`);
+        break;
+      case Operator.subtract:
+        setNumber(`${ num2 - num1}`);
+        break;
+      default:
+        throw new Error('operation no implemented');
+
+
+      }
+      setPrevNumber('0')
+  };
   return {
     //Properties
 
@@ -87,6 +110,7 @@ export const useCalculator = () => {
     divideOperation,
     multiplyOperation,
     addOperation,
-    prevNumber
+    prevNumber,
+    calculateResult
   };
 };
