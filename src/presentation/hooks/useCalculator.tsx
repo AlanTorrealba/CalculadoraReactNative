@@ -1,17 +1,28 @@
-import React, {useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 
 enum Operator {
-  add,
-  subtract,
-  multiply,
-  divide,
+  add ='+',
+  subtract ='-',
+  multiply = 'x',
+  divide= '÷',
 }
 
 export const useCalculator = () => {
+  const [formula, setFormula] = useState('');
   const [number, setNumber] = useState('0');
   const [prevNumber, setPrevNumber] = useState('0');
 
-  const lasOperation = useRef<Operator>();
+  const lastOperation = useRef<Operator>();
+
+  useEffect(() => {
+    console.log(lastOperation.current);
+    if (lastOperation.current) {
+      const firstFormulaPart = formula.split(' ').at(0);
+      setFormula(`${firstFormulaPart} ${lastOperation.current} ${number}`);
+    } else {
+      setFormula(number);
+    }
+  }, [number]);
 
   const buildNumber = (numberString: string) => {
     if (number.includes('.') && numberString === '.') return;
@@ -42,23 +53,25 @@ export const useCalculator = () => {
   };
   const divideOperation = () => {
     setLastNumber();
-    lasOperation.current = Operator.divide;
+    lastOperation.current = Operator.divide;
   };
   const multiplyOperation = () => {
     setLastNumber();
-    lasOperation.current = Operator.multiply;
+    lastOperation.current = Operator.multiply;
   };
   const addOperation = () => {
     setLastNumber();
-    lasOperation.current = Operator.add;
+    lastOperation.current = Operator.add;
   };
   const subtracOperation = () => {
     setLastNumber();
-    lasOperation.current = Operator.subtract;
+    lastOperation.current = Operator.subtract;
   };
   const clearBuild = () => {
     if (number === '0' && prevNumber.length > 1) return setPrevNumber('0');
-    return setNumber('0');
+    setNumber('0');
+    lastOperation.current = undefined;
+    setFormula('');
   };
   const delBuild = () => {
     if (number === '0') return;
@@ -77,30 +90,30 @@ export const useCalculator = () => {
   const calculateResult = () => {
     const num1 = Number(number);
     const num2 = Number(prevNumber);
-    switch (lasOperation.current) {
+    switch (lastOperation.current) {
       case Operator.add:
         setNumber(`${num1 + num2}`);
         break;
       case Operator.divide:
-        setNumber(`${num2 / num1 }`);
+        setNumber(`${num2 / num1}`);
         break;
       case Operator.multiply:
         setNumber(`${num1 * num2}`);
         break;
       case Operator.subtract:
-        setNumber(`${ num2 - num1}`);
+        setNumber(`${num2 - num1}`);
         break;
       default:
         throw new Error('operation no implemented');
-
-
-      }
-      setPrevNumber('0')
+    }
+    setPrevNumber('0');
   };
   return {
     //Properties
-
+    prevNumber,
     number,
+    formula,
+
     //methods
     buildNumber,
     clearBuild,
@@ -110,7 +123,6 @@ export const useCalculator = () => {
     divideOperation,
     multiplyOperation,
     addOperation,
-    prevNumber,
-    calculateResult
+    calculateResult,
   };
 };
