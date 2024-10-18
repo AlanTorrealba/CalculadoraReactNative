@@ -23,6 +23,12 @@ export const useCalculator = () => {
     }
   }, [number]);
 
+    useEffect(() => {
+        const subResult = calculateSubResult();
+        setPrevNumber(`${ subResult}`)
+
+
+    },[formula])
   const buildNumber = (numberString: string) => {
     if (number.includes('.') && numberString === '.') return;
     if (number.startsWith('0') || number.startsWith('-0')) {
@@ -43,6 +49,7 @@ export const useCalculator = () => {
     setNumber(number + numberString);
   };
   const setLastNumber = () => {
+    calculateResult();
     if (number.endsWith('.')) {
       setPrevNumber(number.slice(0, -1));
     } else {
@@ -103,7 +110,7 @@ export const useCalculator = () => {
       case Operator.add:
         return num1 + num2;
       case Operator.divide:
-        return num2 / num1;
+        return   num1 / num2;
       case Operator.multiply:
         return num1 * num2;
       case Operator.subtract:
